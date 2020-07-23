@@ -90,10 +90,6 @@ $animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
                         </div>
                     </div>
                 </div>
-                <?php
-                 /* Removeremos do array o outro animal */
-
-            ?>
                 <div class="col-md-4 d-flex justify-content-center">
                     <div class="card card-image d-block">
                         <img src="./imagens/<?=$animal_escolhido['caracteristicas'][1][1]?>" class="card-img-top" alt="<?=$animal_escolhido['caracteristicas'][1][0]?>">
