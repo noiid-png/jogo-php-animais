@@ -1,5 +1,6 @@
 <?php
 
+/* Informações dos animais */
 $animais_detalhes = [
     'cachorro' => [
         'nome' => 'Cachorro',
@@ -17,10 +18,30 @@ $animais_detalhes = [
     ]
 ];
 
-$animais = array_keys($animais_detalhes);
-$escolha_aleatoria = rand(0, 1);
-$animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
 
+/* "- De forma equivocada, o sistema está previsivelmente sempre mostrando animal correto na primeira posição, da esquerda. E isso precisa ser aleatório."
+
+Para randomizarmos essa seção, faremos o seguinte: Daremos um shuffle, como o php suffle apenas randomiza usando valores de maneira númera, para preservar as keys de cada um, vamos criaru ma função para isso. */
+
+function randomizar_preservando_as_chaves($array) {
+    /* Chaves do array */
+    $keys = array_keys($array);
+    /* Misturamos o array */
+    shuffle($keys);
+    /* O(n)  de complexidade, tá worth. Onde n = 2; */
+    foreach($keys as $key) {
+        $new[$key] = $array[$key];
+    }
+    /* Retornamos para reassigment */   
+    return $new;
+}
+
+$animais_detalhes = randomizar_preservando_as_chaves($animais_detalhes); /* A ordem tem 50% de probabilidade de mudar, pouca, mas tem */
+
+$animais = array_keys($animais_detalhes);
+$escolha_aleatoria = (int) rand(0, 1);
+
+$animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
 ?>
 <!doctype html>
 <html lang="en">
@@ -48,13 +69,20 @@ $animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
                 width: 100%;
                 max-height: 200px;
             }
+
+            .magnify {
+                transition: all .2s ease-in-out;
+            }
+
+            .magnify:hover {
+                transform: scale(1.1);
+            }
         </style>
     </head>
     <body>
         <div class="container-fluid p-4 pb-2" style="background: lightskyblue">
-            <div class="row mt-2">
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
+            <div class="row mt-2 d-flex justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center">
                     <div class="card card-image d-block">
                         <img src="./imagens/<?=$animal_escolhido['caracteristicas'][0][1]?>" class="card-img-top" alt="<?=$animal_escolhido['caracteristicas'][0][0]?>">
                         <div class="card-body">
@@ -62,7 +90,11 @@ $animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <?php
+                 /* Removeremos do array o outro animal */
+
+            ?>
+                <div class="col-md-4 d-flex justify-content-center">
                     <div class="card card-image d-block">
                         <img src="./imagens/<?=$animal_escolhido['caracteristicas'][1][1]?>" class="card-img-top" alt="<?=$animal_escolhido['caracteristicas'][1][0]?>">
                         <div class="card-body">
@@ -72,21 +104,19 @@ $animal_escolhido = $animais_detalhes[$animais[$escolha_aleatoria]];
                 </div>
             </div>
         </div>
-        <div class="container-fluid p-2 mt-3" style="background: lightgreen">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <a href="votar.php?apresentado=<?=$animais[$escolha_aleatoria]?>&escolhido=1">
-                        <img width="256" src="./imagens/<?=$animais[$escolha_aleatoria]?>.png" class="img-fluid" alt="mora numa casinha" />
+        <!-- Adicionando o justify content center teremos um display mais bunitinho !-->
+        <div class="container-fluid p-2 mt-3 " style="background: lightgreen">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <a href="votar.php?minha_escolha=<?=array_keys($animais_detalhes)[0]?>&correto=<?=$animal_escolhido['nome']?>">
+                        <img  class="magnify" width="256" src="./imagens/<?=array_keys($animais_detalhes)[0]?>.png" class="img-fluid" alt="mora numa casinha" />
                     </a>
                 </div>
-                <div class="col-md-3">
-                    <a href="votar.php?apresentado=<?=$animais[$escolha_aleatoria]?>&escolhido=2">
-                        <!-- deixe dinâmico esta imagem abaixo -->
-                        <img width="256" src="imagens/cachorro.png" class="img-fluid" alt="mora numa casinha" />
+                <div class="col-md-4 d-flex justify-content-center">
+                     <a href="votar.php?minha_escolha=<?=array_keys($animais_detalhes)[1]?>&correto=<?=$animal_escolhido['nome']?>">
+                        <img class="magnify" width="256" src="./imagens/<?=array_keys($animais_detalhes)[1]?>.png" class="img-fluid" alt="mora numa casinha" />
                     </a>
                 </div>
-                <div class="col-md-3"></div>
             </div>
         </div>
 
