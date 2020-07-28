@@ -11,11 +11,25 @@ $animais_detalhes = [
     ],
     'coruja' => [
         'nome' => 'Coruja',
-        'caracteristicas' => [
-            ['gosta da noite', 'coruja/gosta_da_noite.jpg'],
-            ['tem olhos grandes', 'coruja/tem_olhos_grandes.jpg']
-        ]
-    ]
+            'caracteristicas' => [
+                ['gosta da noite', 'coruja/gosta_da_noite.jpg'],
+                ['tem olhos grandes', 'coruja/tem_olhos_grandes.jpg']
+            ]
+    ],
+    'leao' => [
+        'nome' => 'Leao',
+            'caracteristicas' => [
+                ['gosta de zebra', 'leao/gosta_de_zebra.jpg'],
+                ['faz rawr :3', 'leao/faz_rawr.jpg']
+            ]
+    ],
+    'jumento' => [
+        'nome' => 'Jumento',
+            'caracteristicas' => [
+                ['Dá para instalar um roadstar', 'jumento/roadstar.jpg'], /* Referência do mamonas assassina */
+                ['Animal de carga', 'jumento/animal_de_carga.jpg'] 
+            ]
+    ]    
 ];
 
 
